@@ -30,7 +30,7 @@
   <!-- /#app-footer -->
 </main>
 <!--========== END app main -->
-<?php $this->load->view("includes/right-aside"); ?>
+
 
 <?php $this->load->view("includes/include_script"); ?>
 
