@@ -1,7 +1,0 @@
-<div>
-	
-boş content...
-
-</div>
-
-
