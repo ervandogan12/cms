@@ -1,3 +1,4 @@
+
 <aside id="menubar" class="menubar light">
     <div class="app-user">
         <div class="media">
