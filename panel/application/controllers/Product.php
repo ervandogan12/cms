@@ -35,7 +35,7 @@ class Product extends CI_Controller
         $viewData = new stdClass();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "add";
-       $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
     }
 
@@ -55,23 +55,46 @@ class Product extends CI_Controller
 
         $validate = $this->form_validation->run();
 
-        if ($validate) {
-            echo "kayıt başlar";
-        }
+        //monitor askısı
+        //monitor-askisi
 
-        else{
+        if ($validate) {
+
+          $insert = $this->product_model->add(
+            array(
+             "title"=>$this->input->post("title"),
+             "description"=>$this->input->post("description"),
+             "url"=>"test...",
+             "rank"=>0,
+             "isActive"=>1,
+             "createdAt"=> date("Y-m-d H:i:s")
+
+         )
+        );
+
+          if ($insert) {
+           echo "Kayıt İşlemi Başarılı";
+       } else {
+           
+           echo "İşlem başarısız";
+       }
+       
+
+   }
+
+   else{
 
            // echo validation_errors();
 
-        $viewData = new stdClass();
-        $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "add";
-        $viewData->form_error = true;
+    $viewData = new stdClass();
+    $viewData->viewFolder = $this->viewFolder;
+    $viewData->subViewFolder = "add";
+    $viewData->form_error = true;
 
-       $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
-        }
-    }
+}
+}
 
 
 }
