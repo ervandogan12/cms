@@ -74,11 +74,16 @@ class Product extends CI_Controller
          )
         );
 
+
+//todo alert mesajları eklenecek...
           if ($insert) {
-           echo "Kayıt İşlemi Başarılı";
+
+          redirect(base_url("product"));
+
        } else {
            
            echo "İşlem başarısız";
+           redirect(base_url("product"));
        }
        
 
