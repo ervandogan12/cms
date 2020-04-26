@@ -15,7 +15,8 @@ class Product extends CI_Controller
 
     }
 
-    public function index(){
+    public function index()
+    {
 
         $viewData = new stdClass();
 
@@ -196,6 +197,23 @@ class Product extends CI_Controller
         // Başarısız ise
         // Hata ekranda gösterilir...
 
+    }
+
+    public function delete($id)
+    {
+      $delete = $this->product_model->delete(
+        array(
+              "id" => $id
+        )
+      );
+
+//TODO alert sistemi eklenecek...
+      if ($delete) {
+        redirect(base_url("product"));
+      } else {
+        redirect(base_url("product"));
+      }
+      
     }
 
 }
