@@ -22,5 +22,12 @@
 
 <script src="<?php echo base_url("assets"); ?>/assets/js/sweetalert2.all.js"></script>
 
-<script src="<?php echo base_url("assets"); ?>/assets/js/custom.js"></script>
+<script>
 
+swal({
+  title: 'Error!',
+  text: 'Do you want to continue',
+  icon: 'error',
+  confirmButtonText: 'Cool'
+})
+</script>
