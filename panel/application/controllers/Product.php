@@ -15,13 +15,14 @@ class Product extends CI_Controller
 
     }
 
-    public function index()
-    {
+    public function index(){
 
         $viewData = new stdClass();
 
         /** Tablodan Verilerin Getirilmesi.. */
-        $items = $this->product_model->get_all();
+        $items = $this->product_model->get_all(
+            array(), "rank ASC"
+        );
 
         /** View'e gönderilecek Değişkenlerin Set Edilmesi.. */
         $viewData->viewFolder = $this->viewFolder;
@@ -30,7 +31,6 @@ class Product extends CI_Controller
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
-
 
     public function new_form(){
 
@@ -199,25 +199,24 @@ class Product extends CI_Controller
 
     }
 
-    public function delete($id)
-    {
-      $delete = $this->product_model->delete(
-        array(
-              "id" => $id
-        )
-      );
+    public function delete($id){
 
-//TODO alert sistemi eklenecek...
-      if ($delete) {
-        redirect(base_url("product"));
-      } else {
-        redirect(base_url("product"));
-      }
-      
+        $delete = $this->product_model->delete(
+            array(
+                "id"    => $id
+            )
+        );
+
+        // TODO Alert Sistemi Eklenecek...
+        if($delete){
+            redirect(base_url("product"));
+        } else {
+            redirect(base_url("product"));
+        }
+
     }
 
-
-        public function isActiveSetter($id){
+    public function isActiveSetter($id){
 
         if($id){
 
@@ -232,6 +231,31 @@ class Product extends CI_Controller
                 )
             );
         }
+    }
+
+    public function rankSetter(){
+
+
+        $data = $this->input->post("data");
+
+        parse_str($data, $order);
+
+        $items = $order["ord"];
+
+        foreach ($items as $rank => $id){
+
+            $this->product_model->update(
+                array(
+                    "id"        => $id,
+                    "rank !="   => $rank
+                ),
+                array(
+                    "rank"      => $rank
+                )
+            );
+
+        }
+
     }
 
 }
