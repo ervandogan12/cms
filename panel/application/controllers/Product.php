@@ -258,9 +258,8 @@ class Product extends CI_Controller
 
     }
 
-    public function image_form($id)
-    {
 
+    public function image_form($id){
 
         $viewData = new stdClass();
 
@@ -268,8 +267,33 @@ class Product extends CI_Controller
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "image";
 
+        $viewData->item = $this->product_model->get(
+            array(
+                "id"    => $id
+            )
+        );
+
+
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
     }
+
+        public function image_upload(){
+
+        $config["allowed_types"] = "jpg|jpeg|png";
+        $config["upload_path"]   = "uploads/$this->viewFolder/";
+
+        $this->load->library("upload", $config);
+
+        $upload = $this->upload->do_upload("file");
+
+        if($upload){
+            echo "işlem basarili";
+        } else {
+            echo "islem basarisiz";
+        }
+
+    }
+
 
 }
